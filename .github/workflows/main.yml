@@ -1,1 +1,18 @@
-
+name: login cloud providers
+on:
+    workflow_dispatch:
+jobs:
+    login:
+        strategy:
+            matrix:
+                provider:
+                    - AWS
+                    - GCP
+            runs-on: ubuntu-latest
+            steps:
+                - name: Login to Cloud
+                  run: echo "Login to cloud"
+                - name: Validating Resources
+                  run: echo "Validating Resource Name"
+                - name: End ou Poused Resources
+                  run: echo "Finish Resources"
