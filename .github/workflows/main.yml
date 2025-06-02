@@ -3,11 +3,15 @@ on:
     workflow_dispatch:
 jobs:
     login:
+      strategy:
+        matrix:
+          provider: ["AWS", "GCP"]
       runs-on: ubuntu-latest
       steps:
       - name: Login to Cloud
-        run: echo "Login to cloud"
-      - name: Validating Resources
-        run: echo "Validating Resource Name"
-      - name: End ou Poused Resources
-        run: echo "Finish Resources"
+        uses: vinicius3516/repo-cd/.github/workflows/cd.yml@main
+        with:
+          provider: ${{ matrix.provider }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          gcp_creden: ${{ secrets.GCP_CREDEN }}
