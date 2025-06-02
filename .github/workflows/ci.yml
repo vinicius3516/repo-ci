@@ -1,0 +1,20 @@
+name: CI Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  authenticate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        provider: [AWS, GCP]
+    steps:
+      - name: Call Reusable Auth Workflow
+        uses: nome-org-ou-user/auth-workflows/.github/workflows/authenticate.yml@main
+        with:
+          provider: ${{ matrix.provider }}
+        secrets:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GCP_SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
